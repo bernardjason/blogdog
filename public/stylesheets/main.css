@@ -1,0 +1,34 @@
+
+body { background: #DCDCFF !important;}
+ table, th, td {
+   border: 1px dotted #ACACCF !important; 
+}
+
+
+.navbar-default {
+  background: #0000FF;
+  border: 0;
+  margin-bottom: 0;
+  .navbar-toggle {
+    background: @blue;
+  }
+}
+
+.navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #FFFFFF !important;
+    background-color: #7777AA !important;
+}
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    color: #FFFFFF !important;
+    background-color: #0000AA !important;
+}
+
+.panel-heading {
+    background-color: #DDDDDD !important;
+}
+.jumbotron {
+    background-color: #DDDDDD !important;
+}

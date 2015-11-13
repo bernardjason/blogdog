@@ -1,0 +1,42 @@
+name := """blogdog"""
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
+scalaVersion := "2.11.6"
+
+libraryDependencies ++= Seq(
+  //jdbc,
+  cache,
+  ws,
+  specs2 % Test,
+  javaCore
+  ,"com.typesafe.play" %% "play-slick" % "1.1.0"
+  ,"org.slf4j" % "slf4j-nop" % "1.6.4"
+
+  //,"com.h2database" % "h2" % "1.4.187"
+
+  //           h2 ok ,"joda-time" % "joda-time" % "2.7"
+  //           h2 ok ,"org.joda" % "joda-convert" % "1.7"
+  //,"org.xerial" % "sqlite-jdbc" % "3.7.15-M1"
+  ,"org.xerial" % "sqlite-jdbc" % "3.7.2"
+)
+
+libraryDependencies += "org.scala-lang.modules" %% "scala-java8-compat" % "0.2.0"
+//libraryDependencies += "com.typesafe.play" %% "play-slick" % "1.1.0"
+libraryDependencies += "com.typesafe.play" %% "play-slick-evolutions" % "1.1.0"
+libraryDependencies += evolutions
+
+
+
+resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+
+
+// Play provides two styles of routers, one expects its actions to be injected, the
+// other, legacy style, accesses its actions statically.
+routesGenerator := InjectedRoutesGenerator
+
+

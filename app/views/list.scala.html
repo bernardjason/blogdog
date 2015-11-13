@@ -1,0 +1,114 @@
+@(blogs:List[Blog],loginForm:   play.api.data.Form[User],user:String)(implicit messages: Messages)
+@import helper._
+@import play.i18n.Messages
+
+@main( "BlogDog" , loginForm ,user) {
+
+ <button type="button" class="btn btn-default btn-danger" id="postButton" onClick="add()">New Post</button>
+
+<div class="well" id="blogs">
+  
+</div>
+
+	<div class="modal fade" id="addPost" role="dialog">
+                <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                	<h4 class="modal-title">Post</h4>
+                                </div>
+                                <div class="modal-body">
+                                	<div>
+  										<dl>
+  											<dt><label>info</label></dt>
+  										<dd>
+  											<textarea style="overflow:auto;resize:none;min-width: 80%" draggable="false" 
+  											class="form-control" id="info" name="info" rows="5"></textarea>
+  										</dd>
+  										</dl>
+  										<button id = "submitPostButton" class="btn btn-primary" data-dismiss="modal" type="button">Submit</button>
+  										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										
+									</div>
+								</div>
+					</div>
+			</div>
+	</div>
+
+
+<script>
+
+@if( user == null ) {
+	$('#postButton').prop('disabled', true);
+} else {
+	$('#postButton').prop('disabled', false);
+}
+	
+	
+	function loadData() {
+		$.getJSON(
+			"api/blogs",
+			function(data) {
+				$("#blogs").empty();
+				$.each(	data,function(key, j) {
+					var head = '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'
+						+ j.when + ' by '	+ j.user	+ '</h3></div>'
+					head = head	+ '<div class="panel-body">'
+
+					var newone =  j.what
+					var tail = '</div></div>'
+					console.log(newone)
+					$("#blogs").append(
+						head + newone + tail);
+					});
+
+			}).fail(function(response) {
+				console.log("error " + response.statusText + ":"+ response.status+" - " +response.responseText)
+			  })
+	}
+	loadData();
+
+	var error = null;
+	$('#submitPostButton').on(
+			'click',
+			function(e) {
+				var user = $('#user').val()
+				var info = $('#info').val()
+				var json = '{ "id": "0" , "user": "na" , "when":"1971-01-01T00:00:00.000", "what":"' + info.replace(/[\r?\n]/g, " ") + '" }'
+				console.log(json)	
+				$('#user').val('')
+				$('#info').val('')
+				e.preventDefault();
+				$.ajax({
+					type : "POST",
+					contentType : "application/json; charset=utf-8",
+					data : json,
+					url : "/api/blogs",
+					success : function(data) {
+						loadData();
+					},
+					error : function(response) {
+						alert("error " + response.statusText + ":"+ response.status+" - " +response.responseText)
+					}
+				});
+			});
+
+	function add() {
+		console.log("START MODAL");
+		$('#addPost').modal('show');
+	    $('#info').select(); 
+	}
+	
+	$('#postButton').hover(	
+		function() {
+			add();
+		 }
+	);
+	$('#postButton').click(	
+			function() {
+				$('#addPost').modal('hide');
+			}
+		);
+</script>
+}	
