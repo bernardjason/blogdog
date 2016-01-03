@@ -75,7 +75,7 @@
 			function(e) {
 				var user = $('#user').val()
 				var info = $('#info').val()
-				var json = '{ "id": "0" , "user": "na" , "when":"1971-01-01T00:00:00.000", "what":"' + info.replace(/[\r?\n]/g, " ") + '" }'
+				var json = '{ "id": "0" , "users_id":"0","user": "na" , "when":"1971-01-01T00:00:00.000", "what":"' + info.replace(/[\r?\n]/g, " ") + '" }'
 				console.log(json)	
 				$('#user').val('')
 				$('#info').val('')
@@ -86,6 +86,7 @@
 					data : json,
 					url : "/api/blogs",
 					success : function(data) {
+						console.log(data);
 						loadData();
 					},
 					error : function(response) {

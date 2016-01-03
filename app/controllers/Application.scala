@@ -26,7 +26,8 @@ class Application @Inject() (cache: CacheApi) extends Controller with tables.Use
   val loginForm = Form(
     mapping(
       "user" -> text,
-      "password" -> text)(User.apply)(User.unpick))
+      "password" -> text,
+      "nickname" -> text)(User.apply)(User.unpick))
 
   def index = Action {
     Redirect(routes.Application.list())

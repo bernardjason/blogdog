@@ -8,10 +8,10 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import java.text.SimpleDateFormat
 
-case class Blog(id:String, user: String, when:Timestamp  , what: String) 
+case class Blog(id:String, users_id:String, user: String, when:Timestamp  , what: String) 
 
 
-object Blog extends  ((String, String,Timestamp,String) => Blog) {
+object Blog extends  ((String, String, String,Timestamp,String) => Blog) {
     
   implicit object timestampFormat extends Format[Timestamp] {
   val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
