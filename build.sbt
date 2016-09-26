@@ -7,15 +7,16 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.11.6"
 
 libraryDependencies ++= Seq(
-  jdbc,
+  //jdbc,
   cache,
   "joda-time" % "joda-time" % "2.3",
   "org.xerial" % "sqlite-jdbc" % "3.8.6"
   ,"com.typesafe.play" %% "play-slick" % "1.1.0"
+  ,"com.typesafe.play" %% "play-slick-evolutions" % "1.1.1"
 )
 
 
-libraryDependencies += evolutions
+//libraryDependencies += evolutions
 
 
 
